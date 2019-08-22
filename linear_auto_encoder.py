@@ -38,6 +38,8 @@ for epoch in range(epochs):
 
 print('output: ', out)
 
+
+# testing net with new data
 new_data = torch.tensor(torch.arange(10), dtype=torch.float)
 
 test_data = reversed(new_data)
