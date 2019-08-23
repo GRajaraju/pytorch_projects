@@ -7,17 +7,13 @@ import numpy as np
 
 # read the image
 img = cv2.imread('test.jpg')
-cv2.imshow('original img', img)
-cv2.waitKey(0)
 img = np.mean(img, axis=2)
 img = img/255.0
-print(img.shape)
-#img = np.swapaxes(img, 0, 2)
+img = np.swapaxes(img, 0, 2)
 img = torch.tensor(img, dtype=torch.float)
 img = torch.unsqueeze(img, dim=0)
 img = torch.unsqueeze(img, dim=0)
 
-print(img.shape)
 class ImgGen(nn.Module):
     def __init__(self):
         super(ImgGen, self).__init__()
@@ -79,15 +75,11 @@ for epoch in range(epochs):
 
         print('epoch: {} --- training loss: {}'.format(epoch,loss.item()))
 
-print(out.shape)
 out = torch.squeeze(out, dim=0)
-print(out.shape)
 out = out.detach()
 out = np.swapaxes(out, 0, 2)
-print(out.shape)
 out = np.array(out)
 out = out * 255.0
-#print(out)
 cv2.imshow('output', out)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
